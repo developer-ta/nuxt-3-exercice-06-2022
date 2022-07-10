@@ -1,0 +1,13 @@
+{
+	"nuxt.isNuxtApp": false,
+	"separators.enabledSymbols": [
+		"Classes",
+		"Functions",
+		"Methods"
+	],
+	"separators.useOriginalGreenishSeparator": false,
+	"separators.constructors.borderWidth": 0,
+	"separators.functions.ignoreCallbackInline": false,
+	"separators.methods.borderWidth": 0,
+	"separators.functions.borderWidth": 0
+}
