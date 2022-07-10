@@ -5,7 +5,7 @@ import { join } from 'path';
 import { mkdirSync } from 'fs';
 import { parentPort, threadId } from 'worker_threads';
 import { provider, isWindows } from 'file:///Users/developer_ta/nuxtJs/nuxt-3-exercice-06-2022/node_modules/std-env/dist/index.mjs';
-import { defineEventHandler, handleCacheHeaders, createEvent, createApp, createRouter, lazyEventHandler, eventHandler, useQuery } from 'file:///Users/developer_ta/nuxtJs/nuxt-3-exercice-06-2022/node_modules/h3/dist/index.mjs';
+import { defineEventHandler, handleCacheHeaders, createEvent, createApp, createRouter, lazyEventHandler, useQuery, eventHandler } from 'file:///Users/developer_ta/nuxtJs/nuxt-3-exercice-06-2022/node_modules/h3/dist/index.mjs';
 import { createFetch as createFetch$1, Headers } from 'file:///Users/developer_ta/nuxtJs/nuxt-3-exercice-06-2022/node_modules/ohmyfetch/dist/node.mjs';
 import destr from 'file:///Users/developer_ta/nuxtJs/nuxt-3-exercice-06-2022/node_modules/destr/dist/index.mjs';
 import { createRouter as createRouter$1 } from 'file:///Users/developer_ta/nuxtJs/nuxt-3-exercice-06-2022/node_modules/radix3/dist/index.mjs';
@@ -15,9 +15,7 @@ import { hash } from 'file:///Users/developer_ta/nuxtJs/nuxt-3-exercice-06-2022/
 import { createStorage } from 'file:///Users/developer_ta/nuxtJs/nuxt-3-exercice-06-2022/node_modules/unstorage/dist/index.mjs';
 import _unstorage_drivers_fs from 'file:///Users/developer_ta/nuxtJs/nuxt-3-exercice-06-2022/node_modules/unstorage/dist/drivers/fs.mjs';
 import { withQuery, joinURL } from 'file:///Users/developer_ta/nuxtJs/nuxt-3-exercice-06-2022/node_modules/ufo/dist/index.mjs';
-import { createRenderer } from 'file:///Users/developer_ta/nuxtJs/nuxt-3-exercice-06-2022/node_modules/vue-bundle-renderer/dist/index.mjs';
 import devalue from 'file:///Users/developer_ta/nuxtJs/nuxt-3-exercice-06-2022/node_modules/@nuxt/devalue/dist/devalue.mjs';
-import { renderToString } from 'file:///Users/developer_ta/nuxtJs/nuxt-3-exercice-06-2022/node_modules/vue/server-renderer/index.mjs';
 import { snakeCase } from 'file:///Users/developer_ta/nuxtJs/nuxt-3-exercice-06-2022/node_modules/scule/dist/index.mjs';
 import htmlTemplate from '/Users/developer_ta/nuxtJs/nuxt-3-exercice-06-2022/.nuxt/views/document.template.mjs';
 
@@ -312,9 +310,11 @@ const errorHandler = (async function errorhandler(_error, event) {
   event.res.end(html);
 });
 
+const _lazy_253964 = () => Promise.resolve().then(function () { return checkemail$1; });
 const _lazy_176888 = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
+  { route: '/api/checkemail', handler: _lazy_253964, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_error', handler: _lazy_176888, lazy: true, middleware: false, method: undefined },
   { route: '/**', handler: _lazy_176888, lazy: true, middleware: false, method: undefined }
 ];
@@ -390,6 +390,21 @@ server.listen(listenAddress, () => {
   process.on("uncaughtException", (err) => console.error("[nitro] [dev] [uncaughtException]", err));
 }
 
+const checkemail = defineEventHandler(async (event) => {
+  const query = useQuery(event.req);
+  const result = await new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(query.email === "cory@razorcx.com");
+    }, 500);
+  });
+  return result;
+});
+
+const checkemail$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  'default': checkemail
+});
+
 function buildAssetsURL(...path) {
   return joinURL(publicAssetsURL(), useRuntimeConfig().app.buildAssetsDir, ...path);
 }
@@ -399,26 +414,6 @@ function publicAssetsURL(...path) {
 }
 
 const getClientManifest = () => import('/Users/developer_ta/nuxtJs/nuxt-3-exercice-06-2022/.nuxt/dist/server/client.manifest.mjs').then((r) => r.default || r);
-const getServerEntry = () => import('/Users/developer_ta/nuxtJs/nuxt-3-exercice-06-2022/.nuxt/dist/server/server.mjs').then((r) => r.default || r);
-const getSSRRenderer = lazyCachedFunction(async () => {
-  const clientManifest = await getClientManifest();
-  if (!clientManifest) {
-    throw new Error("client.manifest is not available");
-  }
-  const createSSRApp = await getServerEntry();
-  if (!createSSRApp) {
-    throw new Error("Server bundle is not available");
-  }
-  const renderToString$1 = async (input, context) => {
-    const html = await renderToString(input, context);
-    return `<div id="__nuxt">${html}</div>`;
-  };
-  return createRenderer(createSSRApp, {
-    clientManifest,
-    renderToString: renderToString$1,
-    publicPath: buildAssetsURL()
-  });
-});
 const getSPARenderer = lazyCachedFunction(async () => {
   const clientManifest = await getClientManifest();
   const renderToString = (ssrContext) => {
@@ -461,7 +456,7 @@ const renderer = eventHandler(async (event) => {
     nuxt: void 0,
     payload: void 0
   };
-  const renderer = ssrContext.noSSR ? await getSPARenderer() : await getSSRRenderer();
+  const renderer = await getSPARenderer() ;
   const rendered = await renderer.renderToString(ssrContext).catch((e) => {
     if (!ssrError) {
       throw e;

@@ -30,6 +30,6 @@ input {
   margin: 10px 0 5px 0;
 }
 button {
-  @apply btn-primary bg-blue-600 text-stone-50 outline-none hover:bg-blue-500;
+  @apply btn-primary  bg-blue-600 text-stone-50 outline-none hover:bg-blue-500;
 }
 </style>

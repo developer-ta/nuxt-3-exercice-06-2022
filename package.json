@@ -20,6 +20,7 @@
     "zod": "^3.14.4"
   },
   "dependencies": {
-    "@vee-validate/rules": "^4.5.11"
+    "@vee-validate/rules": "^4.5.11",
+    "yup": "^0.32.11"
   }
 }

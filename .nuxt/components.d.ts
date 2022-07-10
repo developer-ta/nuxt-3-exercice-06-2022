@@ -4,6 +4,7 @@ declare module 'vue' {
     'Footer': typeof import("../components/Footer.vue")['default'],
     'LazyText': typeof import("../components/LazyText.vue")['default'],
     'Nav': typeof import("../components/Nav.vue")['default'],
+    'VTextInput': typeof import("../components/VTextInput.vue")['default'],
     'RestaurantRow': typeof import("../components/restaurant/Row.vue")['default'],
     'RestaurantTable': typeof import("../components/restaurant/Table.vue")['default'],
     'TestMyButton': typeof import("../components/test/MyButton.vue")['default'],
@@ -16,6 +17,7 @@ declare module 'vue' {
     'LazyFooter': typeof import("../components/Footer.vue")['default'],
     'LazyLazyText': typeof import("../components/LazyText.vue")['default'],
     'LazyNav': typeof import("../components/Nav.vue")['default'],
+    'LazyVTextInput': typeof import("../components/VTextInput.vue")['default'],
     'LazyRestaurantRow': typeof import("../components/restaurant/Row.vue")['default'],
     'LazyRestaurantTable': typeof import("../components/restaurant/Table.vue")['default'],
     'LazyTestMyButton': typeof import("../components/test/MyButton.vue")['default'],
@@ -30,6 +32,7 @@ declare module 'vue' {
 export const Footer: typeof import("../components/Footer.vue")['default']
 export const LazyText: typeof import("../components/LazyText.vue")['default']
 export const Nav: typeof import("../components/Nav.vue")['default']
+export const VTextInput: typeof import("../components/VTextInput.vue")['default']
 export const RestaurantRow: typeof import("../components/restaurant/Row.vue")['default']
 export const RestaurantTable: typeof import("../components/restaurant/Table.vue")['default']
 export const TestMyButton: typeof import("../components/test/MyButton.vue")['default']
@@ -42,6 +45,7 @@ export const NuxtLink: typeof import("../node_modules/nuxt/dist/app/components/n
 export const LazyFooter: typeof import("../components/Footer.vue")['default']
 export const LazyLazyText: typeof import("../components/LazyText.vue")['default']
 export const LazyNav: typeof import("../components/Nav.vue")['default']
+export const LazyVTextInput: typeof import("../components/VTextInput.vue")['default']
 export const LazyRestaurantRow: typeof import("../components/restaurant/Row.vue")['default']
 export const LazyRestaurantTable: typeof import("../components/restaurant/Table.vue")['default']
 export const LazyTestMyButton: typeof import("../components/test/MyButton.vue")['default']
